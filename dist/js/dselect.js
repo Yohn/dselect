@@ -92,14 +92,18 @@ function dselect(el, option = {}) {
   const defaultClearable = false;
   const defaultMaxHeight = "360px";
   const defaultSize = "";
+  const defaulSearchPlaceholder = "Search";
+  const defaultNoResultsPlaceholder = "No results found";
   const search = attrBool("search") || option.search || defaultSearch;
   const creatable = attrBool("creatable") || option.creatable || defaultCreatable;
   const clearable = attrBool("clearable") || option.clearable || defaultClearable;
   const maxHeight = el.dataset.dselectMaxHeight || option.maxHeight || defaultMaxHeight;
+  const searchPlaceholder = option.searchPlaceholder || defaulSearchPlaceholder;
+  const noResultsPlaceholder = option.noResultsPlaceholder || defaultNoResultsPlaceholder;
   let size = el.dataset.dselectSize || option.size || defaultSize;
   size = size !== "" ? ` form-select-${size}` : "";
   const classToggler = `form-select${size}`;
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="Search" autofocus>` : "";
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))
@@ -184,7 +188,7 @@ function dselect(el, option = {}) {
           <div class="dselect-items" style="max-height:${maxHeight};overflow:auto">
             ${itemTags(el.querySelectorAll("*"))}
           </div>
-          <div class="${classNoResults} d-none">No results found</div>
+          <div class="${classNoResults} d-none">${noResultsPlaceholder}</div>
         </div>
       </div>
       ${clearBtn}

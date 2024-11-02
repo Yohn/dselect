@@ -40,7 +40,6 @@ function dselectSearch(event, input, classElement, classToggler, creatable) {
 
   for (const item of items) {
     const filterText = item.textContent
-
     if (filterText.toLowerCase().indexOf(filterValue) > -1) {
       item.classList.remove('d-none')
       let header = item
@@ -109,8 +108,8 @@ function dselect(el, option = {}) {
   const defaultClearable = false
   const defaultMaxHeight = '360px'
   const defaultSize = ''
-  const defaulSearchPlaceholder = 'Search';
-  const defaultNoResultsPlaceholder = 'No results found';
+  const defaulSearchPlaceholder = 'Search Yo!';
+  const defaultNoResultsPlaceholder = 'Nothing found';
   const search = attrBool('search') || option.search || defaultSearch
   const creatable = attrBool('creatable') || option.creatable || defaultCreatable
   const clearable = attrBool('clearable') || option.clearable || defaultClearable

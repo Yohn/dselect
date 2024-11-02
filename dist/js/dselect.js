@@ -105,8 +105,8 @@ function dselect(el, option = {}) {
   const defaultClearable = false;
   const defaultMaxHeight = "360px";
   const defaultSize = "";
-  const defaulSearchPlaceholder = "Search";
-  const defaultNoResultsPlaceholder = "No results found";
+  const defaulSearchPlaceholder = "Search Yo!";
+  const defaultNoResultsPlaceholder = "Nothing found";
   const search = attrBool("search") || option.search || defaultSearch;
   const creatable = attrBool("creatable") || option.creatable || defaultCreatable;
   const clearable = attrBool("clearable") || option.clearable || defaultClearable;
@@ -168,10 +168,17 @@ function dselect(el, option = {}) {
       } else {
         const hidden = isPlaceholder(option2) ? " hidden" : "";
         const active = option2.selected ? " active" : "";
-        const disabled = el.multiple && option2.selected ? " disabled" : "";
+        const disabled = option2.selected ? " disabled" : "";
+        const disabledvalue = option2.getAttribute("disabled");
+        disableitem = "";
+        if (disabledvalue !== null) {
+          disableitem = "disabled='true'";
+        } else {
+          disableitem = "";
+        }
         const value = option2.value;
         const text = option2.textContent;
-        items.push(`<button${hidden} class="dropdown-item${active}" data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')"${disabled}>${text}</button>`);
+        items.push(`<button${hidden} class="dropdown-item${active}"  ${disableitem} data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')" ${disabled}>${text}</button>`);
       }
     }
     items = items.join("");

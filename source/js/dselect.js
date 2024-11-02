@@ -44,7 +44,7 @@ function dselectSearch(event, input, classElement, classToggler, creatable) {
     if (filterText.toLowerCase().indexOf(filterValue) > -1) {
       item.classList.remove('d-none')
       let header = item
-      while(header = header.previousElementSibling) {
+      while (header = header.previousElementSibling) {
         if (header.classList.contains('dropdown-header')) {
           header.classList.remove('d-none')
           break
@@ -95,15 +95,19 @@ function dselect(el, option = {}) {
   const defaultClearable = false
   const defaultMaxHeight = '360px'
   const defaultSize = ''
+  const defaulSearchPlaceholder = 'Search';
+  const defaultNoResultsPlaceholder = 'No results found';
   const search = attrBool('search') || option.search || defaultSearch
   const creatable = attrBool('creatable') || option.creatable || defaultCreatable
   const clearable = attrBool('clearable') || option.clearable || defaultClearable
   const maxHeight = el.dataset.dselectMaxHeight || option.maxHeight || defaultMaxHeight
+  const searchPlaceholder = option.searchPlaceholder || defaulSearchPlaceholder;
+  const noResultsPlaceholder = option.noResultsPlaceholder || defaultNoResultsPlaceholder;
   let size = el.dataset.dselectSize || option.size || defaultSize
   size = size !== '' ? ` form-select-${size}` : ''
   const classToggler = `form-select${size}`
 
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="Search" autofocus>` : ''
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : ''
 
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`
@@ -145,8 +149,8 @@ function dselect(el, option = {}) {
     } else {
       const selectedOption = options[options.selectedIndex]
       return isPlaceholder(selectedOption)
-      ? `<span class="${classPlaceholder}">${selectedOption.innerHTML}</span>`
-      : selectedOption.innerHTML
+        ? `<span class="${classPlaceholder}">${selectedOption.innerHTML}</span>`
+        : selectedOption.innerHTML
     }
   }
 
@@ -177,8 +181,8 @@ function dselect(el, option = {}) {
     const autoclose = el.multiple ? ' data-bs-auto-close="outside"' : ''
     const additionalClass = Array.from(el.classList).filter(className => {
       return className !== 'form-select'
-      && className !== 'form-select-sm'
-      && className !== 'form-select-lg'
+        && className !== 'form-select-sm'
+        && className !== 'form-select-lg'
     }).join(' ')
     const clearBtn = clearable && !el.multiple ? `
     <button type="button" class="btn ${classClearBtn}" title="Clear selection" onclick="dselectClear(this, '${classElement}')">
@@ -199,7 +203,7 @@ function dselect(el, option = {}) {
           <div class="dselect-items" style="max-height:${maxHeight};overflow:auto">
             ${itemTags(el.querySelectorAll('*'))}
           </div>
-          <div class="${classNoResults} d-none">No results found</div>
+          <div class="${classNoResults} d-none">${noResultsPlaceholder}</div>
         </div>
       </div>
       ${clearBtn}

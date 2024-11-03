@@ -1,8 +1,8 @@
 # dselect
 
-Dropdown select box for bootstrap 5
+Dropdown select box for bootstrap 5.3.3
 
-[Demo](https://dselect.vercel.app)
+[Demo](https://yohn.github.io/dselect/)
 
 ## Features
 
@@ -22,13 +22,13 @@ Dropdown select box for bootstrap 5
 Install dselect with npm
 
 ```bash
-npm install @yohn/dselect
+npm i @skem9/dselect
 ```
 
 Install from cdn
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@yohn/dselect/dist/css/dselect.css">
-<script src="https://unpkg.com/@yohn/dselect/dist/js/dselect.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.0/dist/css/dselect.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.0/dist/js/dselect.min.js"></script>
 ```
 ## Usage/Examples
 

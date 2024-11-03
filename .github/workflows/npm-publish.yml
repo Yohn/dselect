@@ -1,15 +1,24 @@
-on: push
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main  # adjust to your main branch name
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '20'
-      - run: npm install
-      - run: npm test
-      - run: npm publish --access public
+          node-version: '20'  # adjust to your Node.js version
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests  # optional, add if you have tests to run
+        run: npm test
+      - name: Publish to npm
+        run: npm publish --access public  # adjust --access as needed for public/private packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -187,7 +187,7 @@ exports.build = series(
     ),
     series(
       js,
-      js_minify,
+      js_minify
     ),
   )
 )

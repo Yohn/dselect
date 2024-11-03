@@ -279,3 +279,14 @@ function dselect(el, option = {}) {
 
   el.addEventListener('change', updateDom)
 }
+
+// Expose functions globally for testing
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = {
+    dselectUpdate,
+    dselectRemoveTag,
+    dselectSearch,
+    dselectClear,
+    dselect,
+  };
+}

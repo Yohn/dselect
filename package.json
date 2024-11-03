@@ -13,18 +13,35 @@
     "bootstrap-5",
     "form-select",
     "dselect",
-    "bootstrap-5-extra", "select", "select2", "tags", "bootstrap-tags",
-    "vanilla-js", "form-tags"
+    "bootstrap-5-extra",
+    "select",
+    "select2",
+    "tags",
+    "bootstrap-tags",
+    "vanilla-js",
+    "form-tags"
   ],
   "author": {
     "name": "Yohn",
     "url": "https://github.com/Yohn"
   },
   "contributors": [
-    {"name": "jarstone", "url": "https://github.com/jarstone"},
-    {"name": "Rpgdudester", "url": "https://github.com/Rpgdudester"},
-    {"name": "MaxEtMoritz", "url": "https://github.com/MaxEtMoritz"},
-    {"name": "martinikf", "url": "https://github.com/martinikf"}
+    {
+      "name": "jarstone",
+      "url": "https://github.com/jarstone"
+    },
+    {
+      "name": "Rpgdudester",
+      "url": "https://github.com/Rpgdudester"
+    },
+    {
+      "name": "MaxEtMoritz",
+      "url": "https://github.com/MaxEtMoritz"
+    },
+    {
+      "name": "martinikf",
+      "url": "https://github.com/martinikf"
+    }
   ],
   "license": "MIT",
   "bugs": {
@@ -32,19 +49,23 @@
   },
   "homepage": "https://github.com/Yohn/dselect#readme",
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "esbuild": "^0.12.29",
     "fs-extra": "^10.1.0",
     "gulp": "^5.0.0",
     "gulp-rename": "^2.0.0",
+    "jest": "^29.7.0",
     "postcss": "^8.4.47",
     "postcss-cli": "^8.3.1",
     "through2": "^4.0.2"
   },
   "scripts": {
     "build": "gulp build",
-    "dev": "gulp dev"
+    "dev": "gulp dev",
+    "test": "jest"
   },
   "browserslist": [
     ">= 0.5%",

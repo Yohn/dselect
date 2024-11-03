@@ -258,3 +258,12 @@ function dselect(el, option = {}) {
   }
   el.addEventListener("change", updateDom);
 }
+if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
+  module.exports = {
+    dselectUpdate,
+    dselectRemoveTag,
+    dselectSearch,
+    dselectClear,
+    dselect
+  };
+}

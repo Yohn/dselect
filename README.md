@@ -62,7 +62,9 @@ const config = {
 dselect(document.querySelector('#dselect-example'), config)
 ```
 
-options can also be set in "data-dselect-*" attribute
+## HTML Attributes
+> [!NOTE]
+> options can also be set in "data-dselect-*" attribute
 
 ```html
 <select
@@ -84,4 +86,22 @@ options can also be set in "data-dselect-*" attribute
     <option data-dselect-img="imgs/opera.svg" value="opera">Opera</option>
     <option data-dselect-img="imgs/brave.svg" value="brave">Brave</option>
 </select>
+```
+## Events
+> [!NOTE]
+> Attach event listeners to to the `<select>` id and it will work as expected.
+
+```javascript
+const select = document.document.getElementById('select-id')
+select.addEventListener('change', () => {
+  console.log(select.value)
+})
+
+// for multi select / tags
+const multiple = document.querySelector('#example-multiple')
+multiple.addEventListener('change', () => {
+  const selectedValues = Array.from(multiple.selectedOptions)
+    .map((option) => option.value);
+  console.innerHTML = JSON.stringify(selectedValues);
+})
 ```

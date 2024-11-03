@@ -1,22 +1,36 @@
 {
   "name": "@yohns/dselect",
   "version": "1.1.0",
-  "description": "Dropdown select box for bootstrap 5",
+  "description": "Dropdown select box for bootstrap 5 with search, multiple, tag and image support",
   "repository": {
     "type": "git",
-    "url": "git+https://jarstone@github.com/jarstone/dselect.git"
+    "url": "git+https://yohn@github.com/Yohn/dselect.git"
   },
   "keywords": [
     "dropdown-select",
     "bootstrap-select",
-    "bootstrap-select2"
+    "bootstrap-select2",
+    "bootstrap-5",
+    "form-select",
+    "dselect",
+    "bootstrap-5-extra", "select", "select2", "tags", "bootstrap-tags",
+    "vanilla-js", "form-tags"
   ],
-  "author": "jarstone",
+  "author": {
+    "name": "Yohn",
+    "url": "https://github.com/Yohn"
+  },
+  "contributors": [
+    {"name": "jarstone", "url": "https://github.com/jarstone"},
+    {"name": "Rpgdudester", "url": "https://github.com/Rpgdudester"},
+    {"name": "MaxEtMoritz", "url": "https://github.com/MaxEtMoritz"},
+    {"name": "martinikf", "url": "https://github.com/martinikf"}
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jarstone/dselect/issues"
+    "url": "https://github.com/Yohn/dselect/issues"
   },
-  "homepage": "https://github.com/jarstone/dselect#readme",
+  "homepage": "https://github.com/Yohn/dselect#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",

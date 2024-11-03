@@ -98,26 +98,30 @@ function dselect(el, option = {}) {
   el.style.display = 'none'
   const classElement = 'dselect-wrapper'
   const classNoResults = 'dselect-no-results'
-  const classTag = 'dselect-tag'
   const classTagRemove = 'dselect-tag-remove'
+  const dselectClassTag = 'dselect-tag'
   const classPlaceholder = 'dselect-placeholder'
   const classClearBtn = 'dselect-clear'
   const classTogglerClearable = 'dselect-clearable'
+  const defaultClassTag = `${dselectClassTag} text-bg-dark bg-gradient`
   const defaultSearch = false
   const defaultCreatable = false
   const defaultClearable = false
   const defaultMaxHeight = '360px'
   const defaultSize = ''
-  const defaulSearchPlaceholder = 'Search Yo!';
-  const defaultNoResultsPlaceholder = 'Nothing found';
+  const defaultItemClass = ''
+  const defaulSearchPlaceholder = 'Search..';
+  const defaultNoResultsPlaceholder = 'No results found';
   const search = attrBool('search') || option.search || defaultSearch
   const creatable = attrBool('creatable') || option.creatable || defaultCreatable
   const clearable = attrBool('clearable') || option.clearable || defaultClearable
   const maxHeight = el.dataset.dselectMaxHeight || option.maxHeight || defaultMaxHeight
-  const searchPlaceholder = option.searchPlaceholder || defaulSearchPlaceholder;
-  const noResultsPlaceholder = option.noResultsPlaceholder || defaultNoResultsPlaceholder;
-  let size = el.dataset.dselectSize || option.size || defaultSize
-  size = size !== '' ? ` form-select-${size}` : ''
+  const classTag = el.dataset.dselectdClassTag || option.classTag || defaultClassTag;
+  const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaulSearchPlaceholder;
+  const noResultsPlaceholder = el.dataset.dselectNoResultsPlaceholder || option.noResultsPlaceholder || defaultNoResultsPlaceholder;
+  const itemClass = el.dataset.dselectItemClass || option.ItemClass || defaultItemClass
+  const customSize = el.dataset.dselectSize || option.size || defaultSize
+  let size = customSize !== '' ? ` form-select-${customSize}` : ''
   const classToggler = `form-select${size}`
 
   const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : ''
@@ -178,19 +182,36 @@ function dselect(el, option = {}) {
       if (option2.tagName === "OPTGROUP") {
         items.push(`<h6 class="dropdown-header">${option2.getAttribute("label")}</h6>`);
       } else {
-        const hidden = isPlaceholder(option2) ? " hidden" : "";
-        const active = option2.selected ? " active" : "";
-        const disabled = option2.selected ? " disabled" : "";
+        const hidden = isPlaceholder(option2) ? " hidden" : ""
+        const active = option2.selected ? " active" : ""
+        const disabled = option2.selected ? " disabled" : ""
         const disabledvalue = option2.getAttribute("disabled")
-        disableitem = '';
+        const btnClass = itemClass === '' ? '' : " " + itemClass
+        disableitem = ''
         if (disabledvalue !== null) {
-          disableitem = "disabled='true'";
+          disableitem = "disabled='true'"
         } else {
-          disableitem = "";
+          disableitem = ""
         }
-        const value = option2.value;
-        const text = option2.textContent;
-        items.push(`<button${hidden} class="dropdown-item${active}"  ${disableitem} data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')" ${disabled}>${text}</button>`);
+        const value = option2.value
+        let text = option2.textContent
+        if (option2.hasAttribute('data-dselect-img') && option2.getAttribute('data-dselect-img').trim() !== '') {
+          const img = option2.getAttribute('data-dselect-img').trim()
+          let imgSize = '1rem'
+          console.log(customSize)
+          if(customSize == 'sm') {
+            imgSize = '.7rem'
+          } else if (customSize == 'lg') {
+            imgSize = '1.2rem'
+          }
+          text = `<span class="d-flex align-items-center">
+            <img src="${img}" style="max-height:${imgSize}; width:auto;">
+            <span class="ps-2">${text}</span>
+          </span>`
+        }
+        items.push(`<button${hidden} class="dropdown-item${active}${btnClass}"  ${disableitem} data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')" ${disabled}>
+          ${text}
+        </button>`);
       }
     }
     items = items.join("");
@@ -231,6 +252,17 @@ function dselect(el, option = {}) {
     `
     removePrev()
     el.insertAdjacentHTML('afterend', template) // insert template after element
+
+
+    // Add event listener for dropdown shown event
+    const dropdownElement = el.nextElementSibling;
+    dropdownElement.addEventListener('shown.bs.dropdown', function() {
+      // Find the search input and focus it if it exists
+      const searchInput = this.querySelector('input[type="text"]');
+      if (searchInput) {
+        searchInput.focus();
+      }
+    });
   }
   createDom()
 

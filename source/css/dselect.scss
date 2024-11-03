@@ -1,12 +1,55 @@
 @import "../../node_modules/bootstrap/scss/functions";
 // @import "your-custom-variables";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+
 
 $dselect-clear-icon-width: .625rem;
 
-.dselect-wrapper {
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/utilities";
 
+@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/containers";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/tables";
+@import "../../node_modules/bootstrap/scss/forms";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/transitions";
+@import "../../node_modules/bootstrap/scss/dropdown";
+@import "../../node_modules/bootstrap/scss/button-group";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/card";
+@import "../../node_modules/bootstrap/scss/accordion";
+@import "../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/badge";
+@import "../../node_modules/bootstrap/scss/alert";
+@import "../../node_modules/bootstrap/scss/progress";
+@import "../../node_modules/bootstrap/scss/list-group";
+@import "../../node_modules/bootstrap/scss/close";
+@import "../../node_modules/bootstrap/scss/toasts";
+@import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/tooltip";
+@import "../../node_modules/bootstrap/scss/popover";
+@import "../../node_modules/bootstrap/scss/carousel";
+@import "../../node_modules/bootstrap/scss/spinners";
+@import "../../node_modules/bootstrap/scss/offcanvas";
+@import "../../node_modules/bootstrap/scss/placeholders";
+
+// Helpers
+@import "../../node_modules/bootstrap/scss/helpers";
+
+// Utilities
+@import "../../node_modules/bootstrap/scss/utilities/api";
+// scss-docs-end import-stack
+
+.dselect-wrapper {
   // Toggler
   .form-select {
     padding-left: $form-select-padding-x;
@@ -78,11 +121,18 @@ $dselect-clear-icon-width: .625rem;
 
   // Search input
   .form-control {
-    border-radius: 0;
-    box-shadow: none !important;
-    border-color: $input-border-color !important;
+    @if $enable-rounded {
+      border-radius: $border-radius - $input-border-width;
+    } @else {
+      border-radius: 0 !important;
+    }
+    box-shadow: 0 0 $focus-ring-blur $focus-ring-width / 50 $focus-ring-color !important;
+    border-color: none !important;
     padding: $dropdown-item-padding-y subtract($form-select-padding-x / 2, $input-border-width);
     font-size: inherit;
+    &:focus {
+      border-color: $input-focus-border-color;
+    }
   }
   .form-select-sm + .dropdown-menu .form-control {
     padding: subtract($dropdown-item-padding-y, 1px) subtract($form-select-padding-x-sm / 2, $input-border-width);
@@ -104,14 +154,21 @@ $dselect-clear-icon-width: .625rem;
 
   // Tag
   .dselect-tag {
-    background-color: $secondary;
-    color: $light;
+    // Yohn removed so we can using text-bg-color classes for custom color
+    //background-color: $secondary;
+    //color: $light;
     padding-left: add(.5rem, 14px);
     padding-right: .5rem;
     border-radius: $border-radius;
     height: calc(#{$form-select-line-height} * #{$font-size-base});
     line-height: calc((#{$form-select-line-height} * #{$font-size-base}) - 1px);
     position: relative;
+    opacity: .8;
+    @include transition(opacity .3s ease);
+    &:hover {
+
+      opacity: 1;
+    }
   }
   .form-select-sm .dselect-tag {
     height: auto;

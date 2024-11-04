@@ -127,7 +127,6 @@ $dselect-clear-icon-width: .625rem;
     opacity: .8;
     @include transition(opacity .3s ease);
     &:hover {
-
       opacity: 1;
     }
   }
@@ -218,4 +217,46 @@ $dselect-clear-icon-width: .625rem;
       box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-valid-color, $input-btn-focus-color-opacity);
     }
   }
+}
+
+.input-group {
+  > .dselect-wrapper {
+    position: relative; // For focus state's z-index
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+  }
+  > .dselect-wrapper:focus {
+    z-index: 5;
+  }
+  > .dselect-wrapper:last-child > .form-select {
+    @include border-start-radius(0);
+  }
+  > .dselect-wrapper:nth-last-child(n + 3) > .form-select {
+    @include border-end-radius(0);
+  }
+  > .form-select:first-child + .dselect-wrapper:not(:last-child) > .form-select {
+    @include border-end-radius(0);
+  }
+  > .form-select:not(:first-child) + .dselect-wrapper:not(:last-child) > .form-select {
+    @include border-radius(0);
+  }
+}
+.input-group-lg > .dselect-wrapper > .form-select {
+  padding: $input-padding-y-lg $input-padding-x-lg;
+  @include font-size($input-font-size-lg);
+  @include border-radius($input-border-radius-lg);
+}
+
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding: $input-padding-y-sm $input-padding-x-sm;
+  @include font-size($input-font-size-sm);
+  @include border-radius($input-border-radius-sm);
+}
+.input-group-lg > .dselect-wrapper > .form-select,
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding-right: $form-select-padding-x + $form-select-indicator-padding;
+}
+
+.input-group {
 }

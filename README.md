@@ -57,6 +57,7 @@ const config = {
     classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
     searchPlaceholder: 'Search..', // when search: true the placeholder in input box
     noResultsPlaceholder: 'No results found', // when search finds no results
+    addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
     itemClass: '', // an additional css class to be added to each item within the dropdown menu
 }
 dselect(document.querySelector('#dselect-example'), config)
@@ -77,7 +78,8 @@ dselect(document.querySelector('#dselect-example'), config)
   data-dselect-max-height="300px"
   data-dselect-class-tag="text-bg-dark bg-gradient"
   data-dselect-search-placeholder="Search.."
-  data-dselect-no-results-placeholder="No results found">
+  data-dselect-no-results-placeholder="No results found"
+  data-dselect-add-option-placeholder="Press Enter to add new tag.">
     <option value="">Choose browser</option>
     <option data-dselect-img="imgs/chrome.svg" value="chrome">Chrome</option>
     <option data-dselect-img="imgs/firefox.svg" value="firefox">Firefox</option>

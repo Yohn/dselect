@@ -26,7 +26,7 @@
             </div>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Dropdown select box for bootstrap 5</li>
+            <li class="list-group-item bg-primary bg-opacity-25">Dropdown select menu for bootstrap 5, with support for tags, multiple choices, searchable, images in list, clearable, small and large sizing, and compatibility with input groups.</li>
           </ul>
           <div class="list-group list-group-flush list-group-horizontal">
             <div class="rounded-0 col-4 list-group-item list-group-item-primary border-bottom border-top-0" style="white-space: nowrap;">Updated By:</div>
@@ -48,7 +48,7 @@
           <div class="card card-body border-0 shadow-sm">
             <div class="my-3 d-flex flex-column gap-4">
               <div>
-                <h6>Basic</h6>
+                <h5>Basic</h5>
                 <select class="form-select" id="example-basic">
                   <option value="chrome">Chrome</option>
                   <option value="firefox">Firefox</option>
@@ -58,9 +58,23 @@
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect05">Favorite</label>
+                <select class="form-select" id="inputGroupSelect05" multiple>
+                  <option value="">Favorite Browser</option>
+                  <option data-dselect-img="example/imgs/chrome.svg" value="chrome">Chrome</option>
+                  <option data-dselect-img="example/imgs/firefox.svg" value="firefox">Firefox</option>
+                  <option data-dselect-img="example/imgs/safari.svg" value="safari">Safari</option>
+                  <option data-dselect-img="example/imgs/edge.svg" value="edge">Edge</option>
+                  <option data-dselect-img="example/imgs/opera.svg" value="opera">Opera</option>
+                  <option data-dselect-img="example/imgs/brave.svg" value="brave">Brave</option>
+                </select>
+                <label class="input-group-text" for="inputGroupSelect05">Browser</label>
+              </div>
+              <hr>
               <div>
-                <h6>With placeholder</h6>
+                <h5>With placeholder</h5>
                 <select class="form-select" id="example-placeholder">
                   <option value="">Choose browser</option>
                   <option value="chrome">Chrome</option>
@@ -71,22 +85,22 @@
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>Multiple</h6>
+                <h5>Multiple</h5>
                 <select class="form-select" id="example-multiple" multiple>
                   <option value="">Choose browser</option>
-                  <option value="chrome" selected>Chrome</option>
+                  <option value="chrome">Chrome</option>
                   <option value="firefox" selected>Firefox</option>
-                  <option value="safari" selected>Safari</option>
+                  <option value="safari">Safari</option>
                   <option value="edge">Edge</option>
                   <option value="opera">Opera</option>
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>Search</h6>
+                <h5>Search</h5>
                 <select class="form-select" id="example-search">
                   <option value="">Choose browser</option>
                   <option value="chrome">Chrome</option>
@@ -97,9 +111,9 @@
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>With Images</h6>
+                <h5>With Images</h5>
                 <select class="form-select" id="example-imgs">
                   <option data-dselect-img="example/imgs/chrome.svg" value="chrome">Chrome</option>
                   <option data-dselect-img="example/imgs/firefox.svg" value="firefox">Firefox</option>
@@ -109,9 +123,9 @@
                   <option data-dselect-img="example/imgs/brave.svg" value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>Search w/ Placeolders</h6>
+                <h5>Search w/ Placeolders</h5>
                 <select class="form-select"
   				      	data-dselect-search-placeholder="Search me homie!"
   				      	data-dselect-no-results-placeholder="Nothing here yo"
@@ -127,7 +141,7 @@
               </div>
 
               <div>
-                <h6>Creatable</h6>
+                <h5>Creatable</h5>
                 <select class="form-select" id="example-creatable">
                   <option value="">Choose or add browser</option>
                   <option value="chrome">Chrome</option>
@@ -138,9 +152,9 @@
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>Clearable</h6>
+                <h5>Clearable</h5>
                 <select class="form-select" id="example-clearable">
                   <option value="">Choose browser</option>
                   <option value="chrome" selected>Chrome</option>
@@ -151,9 +165,9 @@
                   <option value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div class="d-flex flex-column gap-1">
-                <h6>Sizing</h6>
+                <h5>Sizing</h5>
                 <select class="form-select" id="example-sizing-sm">
                   <option value="">Choose browser</option>
                   <option data-dselect-img="example/imgs/chrome.svg" value="chrome">Chrome</option>
@@ -182,10 +196,10 @@
                   <option data-dselect-img="example/imgs/brave.svg" value="brave">Brave</option>
                 </select>
               </div>
-
+              <hr>
               <div>
-                <h6>Validation</h6>
-                <form class="needs-validation d-flex flex-column gap-3" novalidate>
+                <h5>Validation</h5>
+                <form class="needs-validation d-flex flex-column gap-3" novalidate action="javascript:void(0);">
                   <div>
                     <select class="form-select dselect" data-dselect-clearable="true" required>
                       <option value="">Choose browser</option>
@@ -215,11 +229,47 @@
                   <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
               </div>
+              <hr>
+              <div>
+                <h5>Input Groups</h5>
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                  <select class="form-select" id="inputGroupSelect01">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="input-group mb-3">
+                  <select class="form-select" id="inputGroupSelect02">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                </div>
+                <div class="input-group mb-3">
+                  <select class="form-select" id="inputGroupSelect03">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <label class="input-group-text" for="inputGroupSelect04">Options</label>
+                  <select class="form-select" id="inputGroupSelect04">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
   <div class="container">
@@ -241,6 +291,7 @@ dselect(element, {
   classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
   searchPlaceholder: 'Search..', // when search: true the placeholder in input box
   noResultsPlaceholder: 'No results found', // when search finds no results
+  addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
   itemClass: '', // an additional css class to be added to each item within the dropdown menu
 })
           </code></pre>
@@ -268,6 +319,24 @@ dselect(element, {
   <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" crossorigin="anonymous"></script>
   <script src="dist/js/dselect.js"></script>
   <script>
+
+    // input-group
+    dselect(document.querySelector('#inputGroupSelect01'))
+    dselect(document.querySelector('#inputGroupSelect02'))
+    dselect(document.querySelector('#inputGroupSelect03'))
+    dselect(document.querySelector('#inputGroupSelect04'))
+    dselect(document.querySelector('#inputGroupSelect05'), {
+      search: true, // search items
+      creatable: true, // allow to create new elements
+      clearable: true, // to remove the selection
+      maxHeight: '360px', // height of the dropdown menu
+      size: '', // 'sm' or 'lg' according to
+      classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
+      searchPlaceholder: 'Favorite Framework', // when search: true the placeholder in input box
+      noResultsPlaceholder: 'No results found', // when search finds no results
+      itemClass: 'active', // an additional css class to be added to each item within the dropdown menu
+    })
+
     // basic
     dselect(document.querySelector('#example-basic'))
 

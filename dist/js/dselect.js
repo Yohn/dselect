@@ -29,7 +29,7 @@ function dselectRemoveTag(button, classElement, classToggler) {
     input.value = "";
   }
 }
-function dselectSearch(event, input, classElement, classToggler, creatable) {
+function dselectSearch(event, input, classElement, classToggler, creatable, localication) {
   const filterValue = input.value.toLowerCase().trim();
   const itemsContainer = input.nextElementSibling;
   const headers = itemsContainer.querySelectorAll(".dropdown-header");
@@ -69,7 +69,7 @@ function dselectSearch(event, input, classElement, classToggler, creatable) {
     noResults.classList.remove("d-none");
     itemsContainer.classList.add("d-none");
     if (creatable) {
-      noResults.innerHTML = `Press Enter to add "<strong>${input.value}</strong>"`;
+      noResults.innerHTML = localication.replace("[searched-term]", input.value);
       if (event.key === "Enter") {
         const target = input.closest(`.${classElement}`).previousElementSibling;
         const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
@@ -100,27 +100,30 @@ function dselect(el, option = {}) {
   const classPlaceholder = "dselect-placeholder";
   const classClearBtn = "dselect-clear";
   const classTogglerClearable = "dselect-clearable";
-  const defaultClassTag = `${dselectClassTag} text-bg-dark bg-gradient`;
+  const defaultClassTag = `text-bg-dark bg-gradient`;
   const defaultSearch = false;
   const defaultCreatable = false;
   const defaultClearable = false;
   const defaultMaxHeight = "360px";
   const defaultSize = "";
   const defaultItemClass = "";
-  const defaulSearchPlaceholder = "Search..";
+  const defaultSearchPlaceholder = "Search..";
+  const defaultAddOptionPlaceholder = 'Press Enter to add &quot;<strong>[searched-term]</strong>&quot;';
   const defaultNoResultsPlaceholder = "No results found";
   const search = attrBool("search") || option.search || defaultSearch;
   const creatable = attrBool("creatable") || option.creatable || defaultCreatable;
   const clearable = attrBool("clearable") || option.clearable || defaultClearable;
   const maxHeight = el.dataset.dselectMaxHeight || option.maxHeight || defaultMaxHeight;
-  const classTag = el.dataset.dselectdClassTag || option.classTag || defaultClassTag;
-  const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaulSearchPlaceholder;
+  const classTagTemp = el.dataset.dselectdClassTag || option.classTag || defaultClassTag;
+  const classTag = `${dselectClassTag} ${classTagTemp}`;
+  const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaultSearchPlaceholder;
   const noResultsPlaceholder = el.dataset.dselectNoResultsPlaceholder || option.noResultsPlaceholder || defaultNoResultsPlaceholder;
+  const addOptionPlaceholder = el.dataset.dselectAddOptionPlaceholder || option.addOptionPlaceholder || defaultAddOptionPlaceholder;
   const itemClass = el.dataset.dselectItemClass || option.ItemClass || defaultItemClass;
   const customSize = el.dataset.dselectSize || option.size || defaultSize;
   let size = customSize !== "" ? ` form-select-${customSize}` : "";
   const classToggler = `form-select${size}`;
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable})" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))
@@ -186,7 +189,6 @@ function dselect(el, option = {}) {
         if (option2.hasAttribute("data-dselect-img") && option2.getAttribute("data-dselect-img").trim() !== "") {
           const img = option2.getAttribute("data-dselect-img").trim();
           let imgSize = "1rem";
-          console.log(customSize);
           if (customSize == "sm") {
             imgSize = ".7rem";
           } else if (customSize == "lg") {

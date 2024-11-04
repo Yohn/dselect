@@ -180,4 +180,46 @@
   box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
 }
 
+.input-group > .dselect-wrapper {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+}
+.input-group > .dselect-wrapper:focus {
+  z-index: 5;
+}
+.input-group > .dselect-wrapper:last-child > .form-select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input-group > .dselect-wrapper:nth-last-child(n+3) > .form-select {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .form-select:first-child + .dselect-wrapper:not(:last-child) > .form-select {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .form-select:not(:first-child) + .dselect-wrapper:not(:last-child) > .form-select {
+  border-radius: 0;
+}
+
+.input-group-lg > .dselect-wrapper > .form-select {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  border-radius: var(--bs-border-radius-lg);
+}
+
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: var(--bs-border-radius-sm);
+}
+
+.input-group-lg > .dselect-wrapper > .form-select,
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding-right: 3rem;
+}
+
 /*# sourceMappingURL=dselect.css.map */

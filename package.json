@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git+https://yohn@github.com/Yohn/dselect.git"
   },
+  "type":"commonjs",
   "keywords": [
     "dropdown-select",
     "bootstrap-select",

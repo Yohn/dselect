@@ -29,52 +29,54 @@ function dselectRemoveTag(button, classElement, classToggler) {
     input.value = "";
   }
 }
-function dselectSearch(event, input, classElement, classToggler, creatable, localication) {
+function dselectSearch(event, input, classElement, classToggler, creatable, localization) {
   const filterValue = input.value.toLowerCase().trim();
   const itemsContainer = input.nextElementSibling;
-  const headers = itemsContainer.querySelectorAll(".dropdown-header");
-  const items = itemsContainer.querySelectorAll(".dropdown-item");
+  const headers = Array.from(itemsContainer.querySelectorAll(".dropdown-header"));
+  const items = Array.from(itemsContainer.querySelectorAll(".dropdown-item"));
   const noResults = itemsContainer.nextElementSibling;
-  headers.forEach((i) => i.classList.add("d-none"));
-  for (const item of items) {
-    const filterText = item.textContent;
-    if (filterText.toLowerCase().indexOf(filterValue) > -1) {
-      item.classList.remove("d-none");
-      let header = item;
-      // wrapped in a second () to calm eslint.
-      while ((header = header.previousElementSibling)) {
-        if (header.classList.contains("dropdown-header")) {
-          header.classList.remove("d-none");
-          break;
-        }
-      }
-    } else {
-      item.classList.add("d-none");
-    }
-  }
-  for (const header of headers) {
-    const filterText = header.textContent;
-    if (filterText.toLowerCase().indexOf(filterValue) > -1) {
-      header.classList.remove("d-none");
-      let item = header;
-      // wrapped in a second () to calm eslint.
-      while ((item = item.nextElementSibling)) {
-        if (item.classList.contains("dropdown-header")) {
-          break;
-        }
-        item.classList.remove("d-none");
+
+  headers.forEach((header) => header.classList.add("d-none"));
+
+  items.forEach((item) => {
+    const filterText = item.textContent.toLowerCase();
+    const isVisible = filterText.includes(filterValue);
+    item.classList.toggle("d-none", !isVisible);
+
+    if (isVisible) {
+      let currentHeader = item.previousElementSibling;
+      while (currentHeader && !currentHeader.classList.contains("dropdown-header")) {
+        currentHeader.classList.remove("d-none");
+        currentHeader = currentHeader.previousElementSibling;
       }
     }
-  }
-  const found = Array.from(items).filter((i) => !i.classList.contains("d-none") && !i.hasAttribute("hidden"));
-  if (found.length < 1) {
+  });
+
+  headers.forEach((header) => {
+    const filterText = header.textContent.toLowerCase();
+    const isVisible = filterText.includes(filterValue);
+    header.classList.toggle("d-none", !isVisible);
+
+    if (isVisible) {
+      let currentItem = header.nextElementSibling;
+      while (currentItem && !currentItem.classList.contains("dropdown-header")) {
+        currentItem.classList.remove("d-none");
+        currentItem = currentItem.nextElementSibling;
+      }
+    }
+  });
+
+  const foundItems = items.filter((item) => !item.classList.contains("d-none") && !item.hasAttribute("hidden"));
+
+  if (foundItems.length === 0) {
     noResults.classList.remove("d-none");
     itemsContainer.classList.add("d-none");
+
     if (creatable) {
-      noResults.innerHTML = localication.replace("[searched-term]", input.value);
+      noResults.innerHTML = localization.replace("[searched-term]", input.value);
       if (event.key === "Enter") {
         const target = input.closest(`.${classElement}`).previousElementSibling;
-        const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
+        const toggler = target.nextElementSibling.querySelector(`.${classToggler}`);
         target.insertAdjacentHTML("afterbegin", `<option value="${input.value}" selected>${input.value}</option>`);
         target.dispatchEvent(new Event("change"));
         input.value = "";
@@ -116,7 +118,7 @@ function dselect(el, option = {}) {
   const creatable = attrBool("creatable") || option.creatable || defaultCreatable;
   const clearable = attrBool("clearable") || option.clearable || defaultClearable;
   const maxHeight = el.dataset.dselectMaxHeight || option.maxHeight || defaultMaxHeight;
-  const classTagTemp = el.dataset.dselectdClassTag || option.classTag || defaultClassTag;
+  const classTagTemp = el.dataset.dselectClassTag || option.classTag || defaultClassTag;
   const classTag = `${dselectClassTag} ${classTagTemp}`;
   const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaultSearchPlaceholder;
   const noResultsPlaceholder = el.dataset.dselectNoResultsPlaceholder || option.noResultsPlaceholder || defaultNoResultsPlaceholder;
@@ -262,12 +264,11 @@ function dselect(el, option = {}) {
   }
   el.addEventListener("change", updateDom);
 }
-if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-  module.exports = {
-    dselectUpdate,
-    dselectRemoveTag,
-    dselectSearch,
-    dselectClear,
-    dselect
-  };
+
+if (typeof window !== "undefined") {
+  window.dselectUpdate = dselectUpdate;
+  window.dselectRemoveTag = dselectRemoveTag;
+  window.dselectSearch = dselectSearch;
+  window.dselectClear = dselectClear;
+  window.dselect = dselect;
 }

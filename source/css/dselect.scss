@@ -217,6 +217,33 @@ $dselect-clear-icon-width: .625rem;
       box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-valid-color, $input-btn-focus-color-opacity);
     }
   }
+
+	// when they use the up / down / tab to get to link it makes it `.active`
+	.dropdown-item:focus-visible,
+	.dropdown-item:focus-within {
+		color: var(--bs-dropdown-link-active-color);
+		text-decoration: none;
+		background-color: var(--bs-dropdown-link-active-bg);
+		outline: none !important;
+		border-style:none !important;
+		border-color:transparent !important;
+	}
+}
+
+.input-group-lg > .dselect-wrapper > .form-select {
+  padding: $input-padding-y-lg $input-padding-x-lg;
+  @include font-size($input-font-size-lg);
+  @include border-radius($input-border-radius-lg);
+}
+
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding: $input-padding-y-sm $input-padding-x-sm;
+  @include font-size($input-font-size-sm);
+  @include border-radius($input-border-radius-sm);
+}
+.input-group-lg > .dselect-wrapper > .form-select,
+.input-group-sm > .dselect-wrapper > .form-select {
+  padding-right: $form-select-padding-x + $form-select-indicator-padding;
 }
 
 .input-group {
@@ -235,25 +262,45 @@ $dselect-clear-icon-width: .625rem;
   > .dselect-wrapper:nth-last-child(n + 3) > .form-select {
     @include border-end-radius(0);
   }
+	//! I think this can be taken out
   > .form-select:first-child + .dselect-wrapper:not(:last-child) > .form-select {
     @include border-end-radius(0);
   }
-  > .form-select:not(:first-child) + .dselect-wrapper:not(:last-child) > .form-select {
-    @include border-radius(0);
+  &.has-validation {
+		> .dselect-wrapper:nth-last-child(n + 4) + .form-select,
+		> :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating):not(.dselect-wrapper) + .form-select:not(:last-child) {
+			border-radius: 100%;
+			//@include border-end-radius(1);
+		}
+
+		//},
+    //> .dropdown-toggle:nth-last-child(n + 4),
+    //> .form-floating:nth-last-child(n + 3) > .form-control,
+    //> .form-floating:nth-last-child(n + 3) > .form-select {
+    //  @include border-end-radius(0);
+    //}
   }
 }
-.input-group-lg > .dselect-wrapper > .form-select {
-  padding: $input-padding-y-lg $input-padding-x-lg;
-  @include font-size($input-font-size-lg);
-  @include border-radius($input-border-radius-lg);
+.input-group.has-validation > .dselect-wrapper:not(:nth-last-child(n+4)) > .form-select {
+	@include border-end-radius($border-radius);
+	@include border-start-radius(0);
 }
 
-.input-group-sm > .dselect-wrapper > .form-select {
-  padding: $input-padding-y-sm $input-padding-x-sm;
-  @include font-size($input-font-size-sm);
-  @include border-radius($input-border-radius-sm);
-}
-.input-group-lg > .dselect-wrapper > .form-select,
-.input-group-sm > .dselect-wrapper > .form-select {
-  padding-right: $form-select-padding-x + $form-select-indicator-padding;
-}
+
+
+/*
+.input-group.has-validation > .dropdown-toggle:nth-last-child(n+4),
+.input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-control,
+.input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-select,
+.input-group.has-validation > :nth-last-child(n+3):not(.dselect-wrapper) + .form-selct
+
+
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating),
+
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3),
+
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control,
+
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select
+
+*/

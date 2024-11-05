@@ -1,12 +1,12 @@
 {
   "name": "@skem9/dselect",
-  "version": "1.1.11",
+  "version": "1.1.2",
   "description": "Dropdown select box for bootstrap 5 with search, multiple, tag and image support",
   "repository": {
     "type": "git",
     "url": "git+https://yohn@github.com/Yohn/dselect.git"
   },
-  "type":"commonjs",
+  "type": "commonjs",
   "keywords": [
     "dropdown-select",
     "bootstrap-select",
@@ -55,6 +55,7 @@
     "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "esbuild": "^0.12.29",
+    "eslint": "^9.14.0",
     "fs-extra": "^10.1.0",
     "gulp": "^5.0.0",
     "gulp-rename": "^2.0.0",

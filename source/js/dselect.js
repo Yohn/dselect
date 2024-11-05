@@ -41,7 +41,8 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
     if (filterText.toLowerCase().indexOf(filterValue) > -1) {
       item.classList.remove("d-none");
       let header = item;
-      while (header = header.previousElementSibling) {
+      // wrapped in a second () to calm eslint.
+      while ((header = header.previousElementSibling)) {
         if (header.classList.contains("dropdown-header")) {
           header.classList.remove("d-none");
           break;
@@ -56,7 +57,8 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
     if (filterText.toLowerCase().indexOf(filterValue) > -1) {
       header.classList.remove("d-none");
       let item = header;
-      while (item = item.nextElementSibling) {
+      // wrapped in a second () to calm eslint.
+      while ((item = item.nextElementSibling)) {
         if (item.classList.contains("dropdown-header")) {
           break;
         }
@@ -178,7 +180,7 @@ function dselect(el, option = {}) {
         const disabled = option2.selected ? " disabled" : "";
         const disabledvalue = option2.getAttribute("disabled");
         const btnClass = itemClass === "" ? "" : " " + itemClass;
-        disableitem = "";
+        let disableitem = "";
         if (disabledvalue !== null) {
           disableitem = "disabled='true'";
         } else {

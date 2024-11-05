@@ -178,7 +178,7 @@ function dselect(el, option = {}) {
         const disabled = option2.selected ? " disabled" : "";
         const disabledvalue = option2.getAttribute("disabled");
         const btnClass = itemClass === "" ? "" : " " + itemClass;
-        disableitem = "";
+        let disableitem = "";
         if (disabledvalue !== null) {
           disableitem = "disabled='true'";
         } else {

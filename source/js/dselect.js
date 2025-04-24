@@ -129,7 +129,7 @@ function dselect(el, option = {}) {
   const customSize = el.dataset.dselectSize || option.size || defaultSize;
   let size = customSize !== "" ? ` form-select-${customSize}` : "";
   const classToggler = `form-select${size}`;
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control ${searchExtraClass}" placeholder="${searchPlaceholder}" autofocus>` : "";
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))

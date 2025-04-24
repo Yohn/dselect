@@ -112,6 +112,7 @@ function dselect(el, option = {}) {
   const defaultSize = "";
   const defaultItemClass = "";
   const defaultSearchPlaceholder = "Search..";
+	const defaultSearchExtraClass = "";
   const defaultAddOptionPlaceholder = 'Press Enter to add &quot;<strong>[searched-term]</strong>&quot;';
   const defaultNoResultsPlaceholder = "No results found";
   const search = attrBool("search") || option.search || defaultSearch;
@@ -121,13 +122,14 @@ function dselect(el, option = {}) {
   const classTagTemp = el.dataset.dselectClassTag || option.classTag || defaultClassTag;
   const classTag = `${dselectClassTag} ${classTagTemp}`;
   const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaultSearchPlaceholder;
+	const searchExtraClass = el.dataset.dselectSearchExtraClass || option.searchSearchExtraClass || defaultSearchExtraClass;
   const noResultsPlaceholder = el.dataset.dselectNoResultsPlaceholder || option.noResultsPlaceholder || defaultNoResultsPlaceholder;
   const addOptionPlaceholder = el.dataset.dselectAddOptionPlaceholder || option.addOptionPlaceholder || defaultAddOptionPlaceholder;
   const itemClass = el.dataset.dselectItemClass || option.ItemClass || defaultItemClass;
   const customSize = el.dataset.dselectSize || option.size || defaultSize;
   let size = customSize !== "" ? ` form-select-${customSize}` : "";
   const classToggler = `form-select${size}`;
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control ${searchExtraClass}" placeholder="${searchPlaceholder}" autofocus>` : "";
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))

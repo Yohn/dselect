@@ -143,7 +143,10 @@ function dselect(el, option = {}) {
     }
   }
   function isPlaceholder(option2) {
-    return option2.getAttribute("value") === "";
+		if (option2) {
+      return option2.getAttribute("value") === "";
+		}
+		return true;
   }
   function selectedTag(options, multiple) {
     if (multiple) {

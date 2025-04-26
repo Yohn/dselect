@@ -27,8 +27,8 @@ npm i @skem9/dselect
 
 Install from cdn
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.0/dist/css/dselect.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.0/dist/js/dselect.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yohn/dselect@latest/dist/css/dselect.min.css">
+<script src="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.5/dist/js/dselect.min.js"></script>
 ```
 ## Usage/Examples
 
@@ -56,6 +56,7 @@ const config = {
     size: '', // Can be "sm" or "lg". Default ''
     classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
     searchPlaceholder: 'Search..', // when search: true the placeholder in input box
+    searchExtraclass: '', // extra class to be added to the search input
     noResultsPlaceholder: 'No results found', // when search finds no results
     addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
     itemClass: '', // an additional css class to be added to each item within the dropdown menu
@@ -78,6 +79,7 @@ dselect(document.querySelector('#dselect-example'), config)
   data-dselect-max-height="300px"
   data-dselect-class-tag="text-bg-dark bg-gradient"
   data-dselect-search-placeholder="Search.."
+  data-dselect-search-extra-class=""
   data-dselect-no-results-placeholder="No results found"
   data-dselect-add-option-placeholder="Press Enter to add new tag.">
     <option value="">Choose browser</option>

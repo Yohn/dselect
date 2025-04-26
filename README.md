@@ -56,7 +56,7 @@ const config = {
     size: '', // Can be "sm" or "lg". Default ''
     classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
     searchPlaceholder: 'Search..', // when search: true the placeholder in input box
-    searchExtraclass: '', // extra class to be added to the search input
+    searchExtraClass: '', // extra class to be added to the search input
     noResultsPlaceholder: 'No results found', // when search finds no results
     addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
     itemClass: '', // an additional css class to be added to each item within the dropdown menu

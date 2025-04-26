@@ -3,6 +3,18 @@ function dselectUpdate(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
+  
+  if (target)
+  {
+    target.dispatchEvent(new CustomEvent("update", {
+      detail: {
+        button: button,
+        classElement: classElement,
+        classToggler: classToggler
+      }
+    }));
+  }
+  
   if (target.multiple) {
     Array.from(target.options).filter((option) => option.value === value)[0].selected = true;
   } else {
@@ -22,6 +34,18 @@ function dselectRemoveTag(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
+  
+  if (target)
+  {
+    target.dispatchEvent(new CustomEvent("removeTag", {
+      detail: {
+        button: button,
+        classElement: classElement,
+        classToggler: classToggler
+      }
+    }));
+  }
+  
   Array.from(target.options).filter((option) => option.value === value)[0].selected = false;
   target.dispatchEvent(new Event("change"));
   toggler.click();
@@ -35,6 +59,21 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
   const headers = Array.from(itemsContainer.querySelectorAll(".dropdown-header"));
   const items = Array.from(itemsContainer.querySelectorAll(".dropdown-item"));
   const noResults = itemsContainer.nextElementSibling;
+  const target = input.closest(`.${classElement}`).previousElementSibling;
+  
+  if (target)
+  {
+    target.dispatchEvent(new CustomEvent("search", {
+      detail: {
+        event: event,
+        input: input,
+        classElement: classElement,
+        classToggler: classToggler,
+        creatable: creatable,
+        localization: localization
+      }
+    }));
+  }
 
   headers.forEach((header) => header.classList.add("d-none"));
 
@@ -75,7 +114,6 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
     if (creatable) {
       noResults.innerHTML = localization.replace("[searched-term]", input.value);
       if (event.key === "Enter") {
-        const target = input.closest(`.${classElement}`).previousElementSibling;
         const toggler = target.nextElementSibling.querySelector(`.${classToggler}`);
         target.insertAdjacentHTML("afterbegin", `<option value="${input.value}" selected>${input.value}</option>`);
         target.dispatchEvent(new Event("change"));
@@ -92,6 +130,17 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
 }
 function dselectClear(button, classElement) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
+  
+  if (target)
+  {
+    target.dispatchEvent(new CustomEvent("clear", {
+      detail: {
+        event: button,
+        input: classElement
+      }
+    }));
+  }
+  
   Array.from(target.options).forEach((option) => option.selected = false);
   target.dispatchEvent(new Event("change"));
 }
@@ -249,8 +298,7 @@ function dselect(el, option = {}) {
         </div>
       </div>
       ${clearBtn}
-    </div>
-    `;
+    </div>`;
     removePrev();
     el.insertAdjacentHTML("afterend", template);
     const dropdownElement = el.nextElementSibling;

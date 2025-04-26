@@ -373,16 +373,17 @@
 					<pre><code class="language-javascript">
 const element = document.querySelector('#select-element');
 dselect(element, {
-	search: false, // search items
-	creatable: false, // allow to create new elements
-	clearable: false, // to remove the selection
-	maxHeight: '360px', // height of the dropdown menu
-	size: '', // 'sm' or 'lg' according to
-	classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
-	searchPlaceholder: 'Search..', // when search: true the placeholder in input box
-	noResultsPlaceholder: 'No results found', // when search finds no results
-	addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
-	itemClass: '', // an additional css class to be added to each item within the dropdown menu
+    search: false, // Toggle search feature. Default: false
+    creatable: false, // Creatable selection. Default: false
+    clearable: false, // Clearable selection. Default: false
+    maxHeight: '360px', // Max height for showing scrollbar. Default: 360px
+    size: '', // Can be "sm" or "lg". Default ''
+    classTag: 'text-bg-dark bg-gradient', // a class to be added to the tag badges
+    searchPlaceholder: 'Search..', // when search: true the placeholder in input box
+    searchExtraclass: '', // extra class to be added to the search input
+    noResultsPlaceholder: 'No results found', // when search finds no results
+    addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
+    itemClass: '', // an additional css class to be added to each item within the dropdown menu
 })
 					</code></pre>
 					<hr>

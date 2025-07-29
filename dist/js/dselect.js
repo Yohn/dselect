@@ -3,6 +3,15 @@ function dselectUpdate(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
+  if (target) {
+    target.dispatchEvent(new CustomEvent("update", {
+      detail: {
+        button,
+        classElement,
+        classToggler
+      }
+    }));
+  }
   if (target.multiple) {
     Array.from(target.options).filter((option) => option.value === value)[0].selected = true;
   } else {
@@ -22,6 +31,15 @@ function dselectRemoveTag(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
+  if (target) {
+    target.dispatchEvent(new CustomEvent("removeTag", {
+      detail: {
+        button,
+        classElement,
+        classToggler
+      }
+    }));
+  }
   Array.from(target.options).filter((option) => option.value === value)[0].selected = false;
   target.dispatchEvent(new Event("change"));
   toggler.click();
@@ -35,6 +53,19 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
   const headers = Array.from(itemsContainer.querySelectorAll(".dropdown-header"));
   const items = Array.from(itemsContainer.querySelectorAll(".dropdown-item"));
   const noResults = itemsContainer.nextElementSibling;
+  const target = input.closest(`.${classElement}`).previousElementSibling;
+  if (target) {
+    target.dispatchEvent(new CustomEvent("search", {
+      detail: {
+        event,
+        input,
+        classElement,
+        classToggler,
+        creatable,
+        localization
+      }
+    }));
+  }
   headers.forEach((header) => header.classList.add("d-none"));
   items.forEach((item) => {
     const filterText = item.textContent.toLowerCase();
@@ -67,7 +98,6 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
     if (creatable) {
       noResults.innerHTML = localization.replace("[searched-term]", input.value);
       if (event.key === "Enter") {
-        const target = input.closest(`.${classElement}`).previousElementSibling;
         const toggler = target.nextElementSibling.querySelector(`.${classToggler}`);
         target.insertAdjacentHTML("afterbegin", `<option value="${input.value}" selected>${input.value}</option>`);
         target.dispatchEvent(new Event("change"));
@@ -84,6 +114,14 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
 }
 function dselectClear(button, classElement) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
+  if (target) {
+    target.dispatchEvent(new CustomEvent("clear", {
+      detail: {
+        event: button,
+        input: classElement
+      }
+    }));
+  }
   Array.from(target.options).forEach((option) => option.selected = false);
   target.dispatchEvent(new Event("change"));
 }
@@ -104,7 +142,8 @@ function dselect(el, option = {}) {
   const defaultSize = "";
   const defaultItemClass = "";
   const defaultSearchPlaceholder = "Search..";
-  const defaultAddOptionPlaceholder = "Press Enter to add &quot;<strong>[searched-term]</strong>&quot;";
+  const defaultSearchExtraClass = "";
+  const defaultAddOptionPlaceholder = "Press Enter to add '<b>[searched-term]</b>'";
   const defaultNoResultsPlaceholder = "No results found";
   const search = attrBool("search") || option.search || defaultSearch;
   const creatable = attrBool("creatable") || option.creatable || defaultCreatable;
@@ -113,13 +152,14 @@ function dselect(el, option = {}) {
   const classTagTemp = el.dataset.dselectClassTag || option.classTag || defaultClassTag;
   const classTag = `${dselectClassTag} ${classTagTemp}`;
   const searchPlaceholder = el.dataset.dselectSearchPlaceholder || option.searchPlaceholder || defaultSearchPlaceholder;
+  const searchExtraClass = el.dataset.dselectSearchExtraClass || option.searchExtraClass || defaultSearchExtraClass;
   const noResultsPlaceholder = el.dataset.dselectNoResultsPlaceholder || option.noResultsPlaceholder || defaultNoResultsPlaceholder;
   const addOptionPlaceholder = el.dataset.dselectAddOptionPlaceholder || option.addOptionPlaceholder || defaultAddOptionPlaceholder;
-  const itemClass = el.dataset.dselectItemClass || option.ItemClass || defaultItemClass;
+  const itemClass = el.dataset.dselectItemClass || option.itemClass || defaultItemClass;
   const customSize = el.dataset.dselectSize || option.size || defaultSize;
   let size = customSize !== "" ? ` form-select-${customSize}` : "";
   const classToggler = `form-select${size}`;
-  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control" placeholder="${searchPlaceholder}" autofocus>` : "";
+  const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control ${searchExtraClass}" placeholder="${searchPlaceholder}" autofocus>` : "";
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))
@@ -133,7 +173,10 @@ function dselect(el, option = {}) {
     }
   }
   function isPlaceholder(option2) {
-    return option2.getAttribute("value") === "";
+    if (option2) {
+      return option2.getAttribute("value") === "";
+    }
+    return true;
   }
   function selectedTag(options, multiple) {
     if (multiple) {
@@ -156,7 +199,11 @@ function dselect(el, option = {}) {
       return tag.join("");
     } else {
       const selectedOption = options[options.selectedIndex];
-      return isPlaceholder(selectedOption) ? `<span class="${classPlaceholder}">${selectedOption.innerHTML}</span>` : selectedOption.innerHTML;
+      if (selectedOption) {
+        return isPlaceholder(selectedOption) ? `<span class="${classPlaceholder}">${selectedOption.innerHTML}</span>` : selectedOption.innerHTML;
+      } else {
+        return `<span class="${classPlaceholder}">${searchPlaceholder}</span>`;
+      }
     }
   }
   function selectedText(options) {
@@ -195,7 +242,7 @@ function dselect(el, option = {}) {
             <span class="ps-2">${text}</span>
           </span>`;
         }
-        items.push(`<button${hidden} class="dropdown-item${active}${btnClass}"  ${disableitem} data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')" ${disabled}>
+        items.push(`<button${hidden} class="dropdown-item${active}${btnClass}" ${disableitem} data-dselect-value="${value}" type="button" onclick="dselectUpdate(this, '${classElement}', '${classToggler}')" ${disabled}>
           ${text}
         </button>`);
       }
@@ -216,6 +263,7 @@ function dselect(el, option = {}) {
       </svg>
     </button>
     ` : "";
+    const items = itemTags(el.querySelectorAll("*"));
     const template = `
     <div class="dropdown ${classElement} ${additionalClass}">
       <button class="${classToggler} ${!el.multiple && clearable ? classTogglerClearable : ""}" data-dselect-text="${!el.multiple && selectedText(el.options)}" type="button" data-bs-toggle="dropdown" aria-expanded="false"${autoclose}>
@@ -225,14 +273,13 @@ function dselect(el, option = {}) {
         <div class="d-flex flex-column">
           ${searchInput}
           <div class="dselect-items" style="max-height:${maxHeight};overflow:auto">
-            ${itemTags(el.querySelectorAll("*"))}
+            ${items}
           </div>
-          <div class="${classNoResults} d-none">${noResultsPlaceholder}</div>
+          <div class="${classNoResults} ${items.length ? "d-none" : ""}">${noResultsPlaceholder}</div>
         </div>
       </div>
       ${clearBtn}
-    </div>
-    `;
+    </div>`;
     removePrev();
     el.insertAdjacentHTML("afterend", template);
     const dropdownElement = el.nextElementSibling;

@@ -3,7 +3,7 @@ function dselectUpdate(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
-  
+
   if (target) {
     target.dispatchEvent(new CustomEvent("update", {
       detail: {
@@ -13,7 +13,7 @@ function dselectUpdate(button, classElement, classToggler) {
       }
     }));
   }
-  
+
   if (target.multiple) {
     Array.from(target.options).filter((option) => option.value === value)[0].selected = true;
   } else {
@@ -34,7 +34,7 @@ function dselectRemoveTag(button, classElement, classToggler) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
   const toggler = target.nextElementSibling.getElementsByClassName(classToggler)[0];
   const input = target.nextElementSibling.querySelector("input");
-  
+
   if (target) {
     target.dispatchEvent(new CustomEvent("removeTag", {
       detail: {
@@ -44,7 +44,7 @@ function dselectRemoveTag(button, classElement, classToggler) {
       }
     }));
   }
-  
+
   Array.from(target.options).filter((option) => option.value === value)[0].selected = false;
   target.dispatchEvent(new Event("change"));
   toggler.click();
@@ -60,7 +60,7 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
   const items = Array.from(itemsContainer.querySelectorAll(".dropdown-item"));
   const noResults = itemsContainer.nextElementSibling;
   const target = input.closest(`.${classElement}`).previousElementSibling;
-  
+
   if (target) {
     target.dispatchEvent(new CustomEvent("search", {
       detail: {
@@ -130,7 +130,7 @@ function dselectSearch(event, input, classElement, classToggler, creatable, loca
 
 function dselectClear(button, classElement) {
   const target = button.closest(`.${classElement}`).previousElementSibling;
-  
+
   if (target) {
     target.dispatchEvent(new CustomEvent("clear", {
       detail: {
@@ -139,7 +139,7 @@ function dselectClear(button, classElement) {
       }
     }));
   }
-  
+
   Array.from(target.options).forEach((option) => option.selected = false);
   target.dispatchEvent(new Event("change"));
 }
@@ -179,7 +179,7 @@ function dselect(el, option = {}) {
   let size = customSize !== "" ? ` form-select-${customSize}` : "";
   const classToggler = `form-select${size}`;
   const searchInput = search ? `<input onkeydown="return event.key !== 'Enter'" onkeyup="dselectSearch(event, this, '${classElement}', '${classToggler}', ${creatable}, '${addOptionPlaceholder}')" type="text" class="form-control ${searchExtraClass}" placeholder="${searchPlaceholder}" autofocus>` : "";
-  
+
   function attrBool(attr) {
     const attribute = `data-dselect-${attr}`;
     if (!el.hasAttribute(attribute))
@@ -187,20 +187,20 @@ function dselect(el, option = {}) {
     const value = el.getAttribute(attribute);
     return value.toLowerCase() === "true";
   }
-  
+
   function removePrev() {
     if (el.nextElementSibling && el.nextElementSibling.classList && el.nextElementSibling.classList.contains(classElement)) {
       el.nextElementSibling.remove();
     }
   }
-  
+
   function isPlaceholder(option2) {
     if (option2) {
       return option2.getAttribute("value") === "";
     }
     return true;
   }
-  
+
   function selectedTag(options, multiple) {
     if (multiple) {
       const selectedOptions = Array.from(options).filter((option2) => option2.selected && !isPlaceholder(option2));
@@ -229,12 +229,12 @@ function dselect(el, option = {}) {
       }
     }
   }
-  
+
   function selectedText(options) {
     const selectedOption = options[options.selectedIndex];
     return isPlaceholder(selectedOption) ? "" : selectedOption.textContent;
   }
-  
+
   function itemTags(options) {
     let items = [];
     for (const option2 of options) {
@@ -275,7 +275,7 @@ function dselect(el, option = {}) {
     items = items.join("");
     return items;
   }
-  
+
   function createDom() {
     const autoclose = el.multiple ? ' data-bs-auto-close="outside"' : "";
     const additionalClass = Array.from(el.classList).filter((className) => {
@@ -316,9 +316,9 @@ function dselect(el, option = {}) {
       }
     });
   }
-  
+
   createDom();
-  
+
   function updateDom() {
     const dropdown = el.nextElementSibling;
     const toggler = dropdown.getElementsByClassName(classToggler)[0];
@@ -329,7 +329,7 @@ function dselect(el, option = {}) {
       toggler.dataset.dselectText = selectedText(el.options);
     }
   }
-  
+
   el.addEventListener("change", updateDom);
 }
 

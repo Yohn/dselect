@@ -9,284 +9,388 @@
 @import "../../node_modules/bootstrap/scss/mixins";
 
 $dselect-clear-icon-width: .625rem;
+// Had to add this for the new 3.3.7 version of bootstrap
+$input-border-width: 1px;
 
 .dselect-wrapper {
-  // Toggler
-  .form-select {
-    padding-left: $form-select-padding-x;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .25rem;
-    text-align: left;
-    &.show { // ref: form-select:focus
-      border-color: $form-select-focus-border-color;
-      outline: 0;
-      @if $enable-shadows {
-        @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
-      } @else {
-        // Avoid using mixin so we can pass custom focus shadow properly
-        box-shadow: $form-select-focus-box-shadow;
-      }
-    }
-    &.dselect-clearable {
-      padding-right: add($form-select-indicator-padding + ($form-select-padding-x / 2), $dselect-clear-icon-width);
-    }
-    &.form-select-sm {
-      padding-left: $form-select-padding-x-sm;
-      &.dselect-clearable {
-        padding-right: add($form-select-indicator-padding + ($form-select-padding-x-sm / 2), $dselect-clear-icon-width);
-      }
-    }
-    &.form-select-lg {
-      padding-left: $form-select-padding-x-lg;
-      &.dselect-clearable {
-        padding-right: add($form-select-indicator-padding + ($form-select-padding-x-lg / 2), $dselect-clear-icon-width);
-      }
-    }
-  }
+	position: relative;
 
-  // Menu
-  .dropdown-menu {
-    padding: $form-select-padding-x / 2;
-    width: 100%;
-    > .flex-column {
-      gap:$form-select-padding-x / 2;
-    }
-  }
-  .form-select-sm + .dropdown-menu {
-    padding: $form-select-padding-x-sm / 2;
-    @include font-size($form-select-font-size-sm);
-  }
-  .form-select-lg + .dropdown-menu {
-    padding: $form-select-padding-x-lg / 2;
-    @include font-size($form-select-font-size-lg);
-  }
+	// Toggler
+	.form-select {
+		padding-left: $form-select-padding-x;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: .25rem;
+		text-align: left;
+		background-color: var(--bs-body-bg, $body-bg);
+		border: $input-border-width solid var(--bs-border-color, $input-border-color);
+		min-height:
+    calc(#{$form-select-line-height} * 1em + #{$form-select-padding-y * 2} + #{$input-border-width * 2});
 
-  // Item
-  .dropdown-item,
-  .dropdown-header {
-    padding-left: $form-select-padding-x / 2;
-    padding-right: $form-select-padding-x / 2;
-  }
-  .form-select-sm + .dropdown-menu .dropdown-item,
-  .form-select-sm + .dropdown-menu .dropdown-header {
-    padding-left: $form-select-padding-x-sm / 2;
-    padding-right: $form-select-padding-x-sm / 2;
-  }
-  .form-select-lg + .dropdown-menu .dropdown-item,
-  .form-select-lg + .dropdown-menu .dropdown-header {
-    padding-left: $form-select-padding-x-lg / 2;
-    padding-right: $form-select-padding-x-lg / 2;
-  }
+		&.show { // ref: form-select:focus
+			border-color: $form-select-focus-border-color;
+			outline: 0;
+			@if $enable-shadows {
+				@include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
+			} @else {
+				// Avoid using mixin so we can pass custom focus shadow properly
+				box-shadow: $form-select-focus-box-shadow;
+			}
+		}
 
-  // Search input
-  .form-control {
-    @if $enable-rounded {
-      border-radius: $border-radius - $input-border-width;
-    } @else {
-      border-radius: 0 !important;
-    }
-    box-shadow: 0 0 $focus-ring-blur $focus-ring-width / 50 $focus-ring-color !important;
-    border-color: none !important;
-    padding: $dropdown-item-padding-y subtract($form-select-padding-x / 2, $input-border-width);
-    font-size: inherit;
-    &:focus {
-      border-color: $input-focus-border-color;
-    }
-  }
-  .form-select-sm + .dropdown-menu .form-control {
-    padding: subtract($dropdown-item-padding-y, 1px) subtract($form-select-padding-x-sm / 2, $input-border-width);
-  }
-  .form-select-lg + .dropdown-menu .form-control {
-    padding: $dropdown-item-padding-y subtract($form-select-padding-x-lg / 2, $input-border-width);
-  }
+		&.dselect-clearable {
+			padding-right: add($form-select-indicator-padding + ($form-select-padding-x * .5), $dselect-clear-icon-width);
+		}
 
-  // No results
-  .dselect-no-results {
-    padding: $dropdown-item-padding-y $form-select-padding-x / 2;
-  }
-  .form-select-sm + .dropdown-menu .dselect-no-results {
-    padding: subtract($dropdown-item-padding-y, 1px) $form-select-padding-x-sm / 2;
-  }
-  .form-select-lg + .dropdown-menu .dselect-no-results {
-    padding: $dropdown-item-padding-y $form-select-padding-x-lg / 2;
-  }
+		&.form-select-sm {
+			padding-left: $form-select-padding-x-sm;
+			min-height: calc(#{$form-select-line-height} * 1em + #{$form-select-padding-y-sm * 2} + #{$input-border-width * 2});
 
-  // Tag
-  .dselect-tag {
-    // Yohn removed so we can using text-bg-color classes for custom color
-    //background-color: $secondary;
-    //color: $light;
-    padding-left: add(.5rem, 14px);
-    padding-right: .5rem;
-    border-radius: $border-radius;
-    height: calc(#{$form-select-line-height} * #{$font-size-base});
-    line-height: calc((#{$form-select-line-height} * #{$font-size-base}) - 1px);
-    position: relative;
-    opacity: .8;
-    @include transition(opacity .3s ease);
-    &:hover {
-      opacity: 1;
-    }
-  }
-  .form-select-sm .dselect-tag {
-    height: auto;
-    line-height: inherit;
-  }
-  .form-select-lg .dselect-tag {
-    height: calc(#{$form-select-line-height} * #{$font-size-lg});
-    line-height: calc(#{$form-select-line-height} * #{$font-size-lg});
-  }
-  .dselect-tag-remove {
-    position: absolute;
-    left: .25rem;
-    top: 50%;
-    margin-top: -7px;
-    color: rgba($light, .35);
-    @include transition(color .15s ease-in-out);
-    &:hover {
-      color: $light;
-    }
-  }
+			&.dselect-clearable {
+				padding-right: add($form-select-indicator-padding + ($form-select-padding-x-sm * .5), $dselect-clear-icon-width);
+			}
+		}
 
-  // Placeholder
-  .dselect-placeholder {
-    color: $input-placeholder-color;
-  }
+		&.form-select-lg {
+			padding-left: $form-select-padding-x-lg;
+			min-height: calc(#{$form-select-line-height} * 1em + #{$form-select-padding-y-lg * 2} + #{$input-border-width * 2});
 
-  // Optgroups
-  .dropdown-header ~ .dropdown-item {
-    padding-left: $form-select-padding-x;
-    padding-right: $form-select-padding-x;
-  }
-  .form-select-sm + .dropdown-menu .dropdown-header {
-    font-size: .85em;
-    ~ .dropdown-item {
-      padding-left: $form-select-padding-x-sm;
-      padding-right: $form-select-padding-x-sm;
-    }
-  }
-  .form-select-lg + .dropdown-menu .dropdown-header {
-    font-size: .85em;
-    ~ .dropdown-item {
-      padding-left: $form-select-padding-x-lg;
-      padding-right: $form-select-padding-x-lg;
-    }
-  }
+			&.dselect-clearable {
+				padding-right: add($form-select-indicator-padding + ($form-select-padding-x-lg * .5), $dselect-clear-icon-width);
+			}
+		}
+	}
 
-  // Clear
-  .dselect-clear {
-    position: absolute;
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-    top: 0;
-    bottom: 0;
-    right: $form-select-indicator-padding;
-    display: flex;
-    align-items: center;
-    color: $text-muted;
-    cursor: pointer;
-    &:hover {
-      color: inherit;
-    }
-    svg {
-      width: $dselect-clear-icon-width;
-      height: $dselect-clear-icon-width;
-    }
-  }
-  [data-dselect-text=""] ~ .dselect-clear {
-    display: none;
-  }
+	// Menu - Fixed positioning and sizing
+	.dropdown-menu {
+		padding: $form-select-padding-x * .5;
+		width: 100%;
+		max-width: 100%;
+		background-color: var(--bs-dropdown-bg, $dropdown-bg);
+		border: $dropdown-border-width solid var(--bs-dropdown-border-color, $dropdown-border-color);
+		@include border-radius($dropdown-border-radius);
+		@include box-shadow($dropdown-box-shadow);
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: $zindex-dropdown;
+		min-width: $dropdown-min-width;
+		margin: $dropdown-spacer 0 0;
+		color: var(--bs-dropdown-color, $dropdown-color);
 
-  // Validation
-  .was-validated .form-select:invalid + & .form-select,
-  .form-select.is-invalid + & .form-select {
-    border-color: $form-feedback-invalid-color;
-    &.show,
-    &:focus {
-      box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-invalid-color, $input-btn-focus-color-opacity);
-    }
-  }
-  .was-validated .form-select:valid + & .form-select,
-  .form-select.is-valid + & .form-select {
-    border-color: $form-feedback-valid-color;
-    &.show,
-    &:focus {
-      box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-valid-color, $input-btn-focus-color-opacity);
-    }
-  }
+		> .d-flex.flex-column {
+			gap: $form-select-padding-x * .5;
+		}
+	}
 
-	// when they use the up / down / tab to get to link it makes it `.active`
+	.form-select-sm + .dropdown-menu {
+		padding: $form-select-padding-x-sm * .5;
+		@include font-size($form-select-font-size-sm);
+	}
+
+	.form-select-lg + .dropdown-menu {
+		padding: $form-select-padding-x-lg * .5;
+		@include font-size($form-select-font-size-lg);
+	}
+
+	// Item
+	.dropdown-item,
+	.dropdown-header {
+		padding: $dropdown-item-padding-y ($form-select-padding-x * .5);
+		background-color: transparent;
+		border: none;
+		color: var(--bs-dropdown-link-color, $dropdown-link-color);
+		text-decoration: none;
+		white-space: nowrap;
+		width: 100%;
+		text-align: left;
+
+		&:hover,
+		&:focus {
+			background-color: var(--bs-dropdown-link-hover-bg, $dropdown-link-hover-bg);
+			color: var(--bs-dropdown-link-hover-color, $dropdown-link-hover-color);
+		}
+
+		&.active {
+			background-color: var(--bs-dropdown-link-active-bg, $dropdown-link-active-bg);
+			color: var(--bs-dropdown-link-active-color, $dropdown-link-active-color);
+		}
+
+		&:disabled {
+			color: var(--bs-dropdown-link-disabled-color, $dropdown-link-disabled-color);
+			pointer-events: none;
+			background-color: transparent;
+		}
+	}
+
+	.form-select-sm + .dropdown-menu .dropdown-item,
+	.form-select-sm + .dropdown-menu .dropdown-header {
+		padding: subtract($dropdown-item-padding-y, 1px) ($form-select-padding-x-sm * .5);
+	}
+
+	.form-select-lg + .dropdown-menu .dropdown-item,
+	.form-select-lg + .dropdown-menu .dropdown-header {
+		padding: $dropdown-item-padding-y ($form-select-padding-x-lg * .5);
+	}
+
+	// Search input
+	.form-control {
+		@if $enable-rounded {
+			border-radius: subtract($border-radius, $input-border-width);
+		} @else {
+			border-radius: 0 !important;
+		}
+		box-shadow: 0 0 $focus-ring-blur divide($focus-ring-width, 50) $focus-ring-color !important;
+		border-color: var(--bs-border-color, $input-border-color) !important;
+		background-color: var(--bs-body-bg, $input-bg);
+		color: var(--bs-body-color, $input-color);
+		padding: $dropdown-item-padding-y subtract($form-select-padding-x * .5, $input-border-width);
+		font-size: inherit;
+
+		&:focus {
+			border-color: $input-focus-border-color;
+			@include box-shadow($input-focus-box-shadow);
+		}
+	}
+
+	.form-select-sm + .dropdown-menu .form-control {
+		padding: subtract($dropdown-item-padding-y, 1px) subtract($form-select-padding-x-sm * .5, $input-border-width);
+	}
+
+	.form-select-lg + .dropdown-menu .form-control {
+		padding: $dropdown-item-padding-y subtract($form-select-padding-x-lg * .5, $input-border-width);
+	}
+
+	// No results
+	.dselect-no-results {
+		padding: $dropdown-item-padding-y ($form-select-padding-x * .5);
+		color: var(--bs-secondary-color, $text-muted);
+		font-style: italic;
+		text-align: center;
+	}
+
+	.form-select-sm + .dropdown-menu .dselect-no-results {
+		padding: subtract($dropdown-item-padding-y, 1px) ($form-select-padding-x-sm * .5);
+	}
+
+	.form-select-lg + .dropdown-menu .dselect-no-results {
+		padding: $dropdown-item-padding-y ($form-select-padding-x-lg * .5);
+	}
+
+	// Tag
+	.dselect-tag {
+		// Keep the ability to use text-bg-color classes for custom colors
+		// Default fallback colors
+		background-color: var(--bs-secondary, $secondary);
+		color: var(--bs-white, $white);
+		padding-left: add(.5rem, 14px);
+		padding-right: .5rem;
+		padding-top: .125rem;
+		padding-bottom: .125rem;
+		border-radius: $border-radius;
+		height: calc(#{$form-select-line-height} * #{$font-size-base});
+		line-height: calc((#{$form-select-line-height} * #{$font-size-base}) - 1px);
+		position: relative;
+		opacity: .8;
+		display: inline-flex;
+		align-items: center;
+		font-size: $font-size-sm;
+		@include transition(opacity .3s ease);
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.form-select-sm .dselect-tag {
+		height: auto;
+		line-height: inherit;
+		font-size: multiply($font-size-sm, .85);
+		padding-left: add(.375rem, 12px);
+		padding-right: .375rem;
+	}
+
+	.form-select-lg .dselect-tag {
+		height: calc(#{$form-select-line-height} * #{$font-size-lg});
+		line-height: calc(#{$form-select-line-height} * #{$font-size-lg});
+		font-size: $font-size-base;
+	}
+
+	.dselect-tag-remove {
+		position: absolute;
+		left: .25rem;
+		top: 50%;
+		margin-top: -7px;
+		color: rgba($white, .35);
+		cursor: pointer;
+		@include transition(color .15s ease-in-out);
+
+		&:hover {
+			color: $white;
+		}
+	}
+
+	// Placeholder
+	.dselect-placeholder {
+		color: var(--bs-secondary-color, $input-placeholder-color);
+		font-style: italic;
+	}
+
+	// Optgroups
+	.dropdown-header ~ .dropdown-item {
+		padding-left: $form-select-padding-x;
+		padding-right: $form-select-padding-x;
+	}
+
+	.form-select-sm + .dropdown-menu .dropdown-header {
+		font-size: .85em;
+
+		~ .dropdown-item {
+			padding-left: $form-select-padding-x-sm;
+			padding-right: $form-select-padding-x-sm;
+		}
+	}
+
+	.form-select-lg + .dropdown-menu .dropdown-header {
+		font-size: .85em;
+
+		~ .dropdown-item {
+			padding-left: $form-select-padding-x-lg;
+			padding-right: $form-select-padding-x-lg;
+		}
+	}
+
+	// Clear
+	.dselect-clear {
+		position: absolute;
+		padding: 0;
+		border: 0;
+		box-shadow: none;
+		background: transparent;
+		top: 0;
+		bottom: 0;
+		right: $form-select-indicator-padding;
+		display: flex;
+		align-items: center;
+		color: var(--bs-secondary-color, $text-muted);
+		cursor: pointer;
+		z-index: 3;
+
+		&:hover {
+			color: var(--bs-body-color, $body-color);
+		}
+
+		svg {
+			width: $dselect-clear-icon-width;
+			height: $dselect-clear-icon-width;
+		}
+	}
+
+	[data-dselect-text=""] ~ .dselect-clear {
+		display: none;
+	}
+
+	// Validation
+	.was-validated .form-select:invalid + & .form-select,
+	.form-select.is-invalid + & .form-select {
+		border-color: $form-feedback-invalid-color;
+
+		&.show,
+		&:focus {
+			box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-invalid-color, $input-btn-focus-color-opacity);
+		}
+	}
+
+	.was-validated .form-select:valid + & .form-select,
+	.form-select.is-valid + & .form-select {
+		border-color: $form-feedback-valid-color;
+
+		&.show,
+		&:focus {
+			box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($form-feedback-valid-color, $input-btn-focus-color-opacity);
+		}
+	}
+
+	// Focus states for keyboard navigation
 	.dropdown-item:focus-visible,
 	.dropdown-item:focus-within {
-		color: var(--bs-dropdown-link-active-color);
+		color: var(--bs-dropdown-link-active-color, $dropdown-link-active-color);
 		text-decoration: none;
-		background-color: var(--bs-dropdown-link-active-bg);
+		background-color: var(--bs-dropdown-link-active-bg, $dropdown-link-active-bg);
 		outline: none !important;
-		border-style:none !important;
-		border-color:transparent !important;
+		border-style: none !important;
+		border-color: transparent !important;
+	}
+
+	// Scrollable items container
+	.dselect-items {
+		max-height: 360px;
+		overflow-y: auto;
+		overflow-x: hidden;
 	}
 }
 
+// Input group sizing compatibility
 .input-group-lg > .dselect-wrapper > .form-select {
-  padding: $input-padding-y-lg $input-padding-x-lg;
-  @include font-size($input-font-size-lg);
-  @include border-radius($input-border-radius-lg);
+	padding: $input-padding-y-lg $input-padding-x-lg;
+	@include font-size($input-font-size-lg);
+	@include border-radius($input-border-radius-lg);
 }
 
 .input-group-sm > .dselect-wrapper > .form-select {
-  padding: $input-padding-y-sm $input-padding-x-sm;
-  @include font-size($input-font-size-sm);
-  @include border-radius($input-border-radius-sm);
+	padding: $input-padding-y-sm $input-padding-x-sm;
+	@include font-size($input-font-size-sm);
+	@include border-radius($input-border-radius-sm);
 }
+
 .input-group-lg > .dselect-wrapper > .form-select,
 .input-group-sm > .dselect-wrapper > .form-select {
-  padding-right: $form-select-padding-x + $form-select-indicator-padding;
+	padding-right: $form-select-padding-x + $form-select-indicator-padding;
 }
 
+// Input group integration
 .input-group {
-  > .dselect-wrapper {
-    position: relative; // For focus state's z-index
-    flex: 1 1 auto;
-    width: 1%;
-    min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
-  }
-  > .dselect-wrapper:focus {
-    z-index: 5;
-  }
-  > .dselect-wrapper:last-child > .form-select {
-    @include border-start-radius(0);
-  }
-  > .dselect-wrapper:nth-last-child(n + 3) > .form-select {
-    @include border-end-radius(0);
-  }
-	//! I think this can be taken out
-  > .form-select:first-child + .dselect-wrapper:not(:last-child) > .form-select {
-    @include border-end-radius(0);
-  }
-  &.has-validation {
-		> .dselect-wrapper:nth-last-child(n + 4) + .form-select,
-		> :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating):not(.dselect-wrapper) + .form-select:not(:last-child) {
-			border-radius: 100%;
-			//@include border-end-radius(1);
+	> .dselect-wrapper {
+		position: relative; // For focus state's z-index
+		flex: 1 1 auto;
+		width: 1%;
+		min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+
+		&:focus {
+			z-index: 5;
 		}
 
-		//},
-    //> .dropdown-toggle:nth-last-child(n + 4),
-    //> .form-floating:nth-last-child(n + 3) > .form-control,
-    //> .form-floating:nth-last-child(n + 3) > .form-select {
-    //  @include border-end-radius(0);
-    //}
-  }
-}
-.input-group.has-validation > .dselect-wrapper:not(:nth-last-child(n+4)) > .form-select {
-	@include border-end-radius($border-radius);
-	@include border-start-radius(0);
+		&:last-child > .form-select {
+			@include border-start-radius(0);
+		}
+
+		&:nth-last-child(n + 3) > .form-select {
+			@include border-end-radius(0);
+		}
+	}
+
+	// First form-select followed by dselect-wrapper
+	> .form-select:first-child + .dselect-wrapper:not(:last-child) > .form-select {
+		@include border-end-radius(0);
+	}
+
+	&.has-validation {
+		> .dselect-wrapper:nth-last-child(n + 4) > .form-select {
+			@include border-end-radius(0);
+		}
+
+		> .dselect-wrapper:not(:nth-last-child(n+4)) > .form-select {
+			@include border-end-radius($border-radius);
+			@include border-start-radius(0);
+		}
+	}
 }
 
-
+// Utility classes
+.dselect-wrapper .d-none {
+	display: none !important;
+}
 
 /*
 .input-group.has-validation > .dropdown-toggle:nth-last-child(n+4),

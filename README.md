@@ -28,7 +28,7 @@ npm i @skem9/dselect
 Install from cdn
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Yohn/dselect@latest/dist/css/dselect.min.css">
-<script src="https://cdn.jsdelivr.net/gh/Yohn/dselect@1.1.5/dist/js/dselect.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Yohn/dselect@latest/dist/js/dselect.min.js"></script>
 ```
 ## Usage/Examples
 
@@ -58,7 +58,7 @@ const config = {
     searchPlaceholder: 'Search..', // when search: true the placeholder in input box
     searchExtraClass: '', // extra class to be added to the search input
     noResultsPlaceholder: 'No results found', // when search finds no results
-    addOptionPlaceholder: 'Press Enter to add "&lt;strong&gt;[searched-term]&lt;/strong&gt;"', // when creatable: true the help text under the search box
+    addOptionPlaceholder: 'Press Enter to add &lt;strong&gt;[searched-term]&lt;/strong&gt;', // when creatable: true the help text under the search box
     itemClass: '', // an additional css class to be added to each item within the dropdown menu
 }
 dselect(document.querySelector('#dselect-example'), config)

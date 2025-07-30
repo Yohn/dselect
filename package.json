@@ -1,6 +1,6 @@
 {
   "name": "@skem9/dselect",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "Dropdown select box for bootstrap 5 with search, multiple, tag and image support",
   "repository": {
     "type": "git",

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="dist/css/dselect.css">
+	<title>Bootstrap Icon Picker - dselect Example</title>
+	<style>
+		body {
+			padding: 2rem 0;
+		}
+		.icon-demo {
+			transition: all 0.3s ease;
+		}
+		.icon-demo i {
+			font-size: 4rem;
+			margin-bottom: 1rem;
+			color: var(--bs-primary);
+		}
+		.code-display {
+			background: var(--bs-dark);
+			padding: 1rem;
+			border-radius: 0.375rem;
+			margin-top: 1rem;
+		}
+		.feature-card {
+			height: 100%;
+		}
+	</style>
+</head>
+<body class="bg-secondary-subtle">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-10 offset-lg-1">
+				<div class="card shadow">
+					<div class="card-header bg-primary text-white">
+						<div class="d-flex align-items-center gap-2">
+							<i class="bi bi-palette-fill" style="font-size: 1.5rem;"></i>
+							<h1 class="h3 mb-0">Bootstrap Icon Picker with dselect</h1>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<h5>Select an Icon</h5>
+								<p class="text-muted">Search through 2000+ Bootstrap Icons</p>
+								<label for="icon-picker" class="form-label">Icon Picker</label>
+								<select class="form-select" id="icon-picker">
+									<option value="">Choose an icon...</option>
+								</select>
+							</div>
+							<div class="col-12 col-md-6">
+								<h5>Preview</h5>
+								<p class="text-muted">See your selected icon in action</p>
+								<div class="icon-demo text-center p-4 bg-light rounded">
+									<i class="bi" id="icon-preview"></i>
+									<div>
+										<strong>Class:</strong>
+										<code id="icon-class-display">None selected</code>
+									</div>
+									<div class="mt-2">
+										<strong>Value:</strong>
+										<code id="icon-value-display">None</code>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-12">
+								<h5>Usage Example</h5>
+								<div class="code-display">
+									<pre class="mb-0 text-white"><code>&lt;i class="bi <span id="example-class">bi-heart-fill</span>"&gt;&lt;/i&gt;</code></pre>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-12">
+								<div class="alert alert-info">
+									<h6 class="alert-heading"><i class="bi bi-info-circle-fill"></i> How it works</h6>
+									<ul class="mb-0">
+										<li>The select dropdown contains all Bootstrap Icons (2000+)</li>
+										<li>Each option value stores the Bootstrap icon class (e.g., "bi-heart-fill")</li>
+										<li>Icons are displayed with live preview in the dropdown</li>
+										<li>Search functionality makes finding icons quick and easy</li>
+										<li>Clearable option allows resetting the selection</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-12 col-md-4">
+								<div class="card feature-card">
+									<div class="card-body text-center">
+										<i class="bi bi-search text-primary" style="font-size: 2rem;"></i>
+										<h6 class="mt-2">Searchable</h6>
+										<p class="small text-muted">Quickly find icons by typing their name</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-4">
+								<div class="card feature-card">
+									<div class="card-body text-center">
+										<i class="bi bi-eye text-success" style="font-size: 2rem;"></i>
+										<h6 class="mt-2">Visual Preview</h6>
+										<p class="small text-muted">See each icon before selecting</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-4">
+								<div class="card feature-card">
+									<div class="card-body text-center">
+										<i class="bi bi-code-slash text-warning" style="font-size: 2rem;"></i>
+										<h6 class="mt-2">Easy Integration</h6>
+										<p class="small text-muted">Get the class name ready to use</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col-12">
+								<h5>Popular Icons Quick Access</h5>
+								<div class="d-flex flex-wrap gap-2">
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-heart-fill">
+										<i class="bi bi-heart-fill"></i> Heart
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-star-fill">
+										<i class="bi bi-star-fill"></i> Star
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-house-fill">
+										<i class="bi bi-house-fill"></i> Home
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-gear-fill">
+										<i class="bi bi-gear-fill"></i> Settings
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-bell-fill">
+										<i class="bi bi-bell-fill"></i> Notifications
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-envelope-fill">
+										<i class="bi bi-envelope-fill"></i> Email
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-person-fill">
+										<i class="bi bi-person-fill"></i> User
+									</button>
+									<button class="btn btn-outline-primary btn-sm quick-icon" data-icon="bi-calendar-fill">
+										<i class="bi bi-calendar-fill"></i> Calendar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-muted">
+						<a href="index.html" class="btn btn-sm btn-outline-secondary">
+							<i class="bi bi-arrow-left"></i> Back to Examples
+						</a>
+						<a href="https://icons.getbootstrap.com/" target="_blank" class="btn btn-sm btn-outline-primary float-end">
+							<i class="bi bi-box-arrow-up-right"></i> Browse All Icons
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+	<script src="dist/js/dselect.js"></script>
+	<script src="bootstrap-icons-data.js"></script>
+	<script>
+		const iconPicker = document.getElementById('icon-picker');
+		const iconPreview = document.getElementById('icon-preview');
+		const iconClassDisplay = document.getElementById('icon-class-display');
+		const iconValueDisplay = document.getElementById('icon-value-display');
+		const exampleClass = document.getElementById('example-class');
+
+		bootstrapIcons.forEach(iconClass => {
+			const option = document.createElement('option');
+			option.value = iconClass;
+			option.textContent = iconClass;
+			iconPicker.appendChild(option);
+		});
+
+		dselect(iconPicker, {
+			search: true,
+			clearable: true,
+			maxHeight: '400px',
+			searchPlaceholder: 'Search icons (e.g., heart, star, home)...',
+			noResultsPlaceholder: 'No icons found matching your search'
+		});
+
+		function updateIconDisplay(iconClass) {
+			if (iconClass) {
+				iconPreview.className = `bi ${iconClass}`;
+				iconClassDisplay.textContent = iconClass;
+				iconValueDisplay.textContent = iconClass;
+				exampleClass.textContent = iconClass;
+			} else {
+				iconPreview.className = 'bi';
+				iconClassDisplay.textContent = 'None selected';
+				iconValueDisplay.textContent = 'None';
+				exampleClass.textContent = 'bi-heart-fill';
+			}
+		}
+
+		iconPicker.addEventListener('change', function() {
+			updateIconDisplay(this.value);
+		});
+
+		function addIconsToDropdown() {
+			bootstrapIcons.forEach(iconClass => {
+				const items = document.querySelectorAll(`.dropdown-item[data-dselect-value="${iconClass}"]`);
+				items.forEach(item => {
+					if (!item.querySelector('.bi')) {
+						const icon = document.createElement('i');
+						icon.className = `bi ${iconClass}`;
+						icon.style.marginRight = '0.5rem';
+						icon.style.fontSize = '1.2rem';
+						icon.style.verticalAlign = 'middle';
+						item.insertBefore(icon, item.firstChild);
+					}
+				});
+			});
+		}
+
+		setTimeout(addIconsToDropdown, 100);
+
+		iconPicker.addEventListener('update', function() {
+			setTimeout(addIconsToDropdown, 50);
+		});
+
+		const observer = new MutationObserver(function() {
+			addIconsToDropdown();
+		});
+
+		setTimeout(() => {
+			const dropdownMenu = iconPicker.nextElementSibling?.querySelector('.dropdown-menu');
+			if (dropdownMenu) {
+				observer.observe(dropdownMenu, {
+					childList: true,
+					subtree: true
+				});
+			}
+		}, 200);
+
+		document.querySelectorAll('.quick-icon').forEach(button => {
+			button.addEventListener('click', function() {
+				const iconClass = this.dataset.icon;
+				iconPicker.value = iconClass;
+				iconPicker.dispatchEvent(new Event('change'));
+				const dselectToggler = iconPicker.nextElementSibling?.querySelector('.form-select');
+				if (dselectToggler) {
+					dselectToggler.textContent = iconClass;
+				}
+			});
+		});
+	</script>
+</body>
+</html>
